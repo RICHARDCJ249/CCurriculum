@@ -139,7 +139,7 @@ bool orderLinkedList(node* n,orderFunc func,oType type);
 /// <summary>
 /// 返回链表长度
 /// </summary>
-/// <param name="n">头接地指针</param>
+/// <param name="n">头接点指针</param>
 /// <returns>链表长度</returns>
 int getLinkedListLong(node* n);
 
