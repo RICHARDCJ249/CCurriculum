@@ -61,17 +61,10 @@ typedef struct node
 /// 创建列表
 /// </summary>
 /// <returns>头结点指针</returns>
-node* createLinkedList(void);
+void createLinkedList(node**,_information);
 
 /// <summary>
-/// 删除链表
-/// </summary>
-/// <param name="n">链表头结点</param>
-/// <returns>删除结果</returns>
-bool delLinkedList(node* n);
-
-/// <summary>
-/// 创建学生信息结构
+/// 创建信息结构
 /// </summary>
 /// <param name="name">学生姓名</param>
 /// <param name="id">学生学号</param>
@@ -121,11 +114,11 @@ bool delLinkedListNode(node* n, seat s);
 bool insteadLinkedListNode(node* n, _information i, seat s);
 
 /// <summary>
-/// 清空列表
+/// 删除链表
 /// </summary>
 /// <param name="n">头结点指针</param>
 /// <returns>结果反馈</returns>
-bool clrLinkedListNode(node* n);
+bool delLinkedList(node* n);
 
 /// <summary>
 /// 对链表进行排序

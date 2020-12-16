@@ -18,6 +18,9 @@
     <ClCompile Include="CLinkedList.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="app.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLinkedList.h">

@@ -10,26 +10,24 @@
  *
  */
 
+
 #include "CLinkedList.h"
-#include<stdio.h>
+#include <stdio.h>
 
-node* createLinkedList(void) {
 
-	node* n = (node*)malloc(sizeof(node));
+bool createLinkedList(node **n,_information information) {
 
-	if (n != NULL)
+	*n = (node*)malloc(sizeof(node));
+
+	if (*n != NULL)
 	{
-		n->next = NULL;
-		return n;
+		(*n)->next = NULL;
+		(*n)->information = information;
+		return true;
 	}
-	return;
+	return false;
 }
 
-bool delLinkedList(node* n) {
-	delLinkedListBackNode(n);
-	free(n);
-	return true;
-}
 
 _information createInformation(char* name, long id, char* address) {
 
@@ -52,7 +50,6 @@ bool addLinkedListBackNode(node* n, _information i) {
 	}
 	else
 	{
-		node* temp;
 		s->information = i;
 		s->next = NULL;
 		if (n->next == NULL)
@@ -61,12 +58,11 @@ bool addLinkedListBackNode(node* n, _information i) {
 		}
 		else
 		{
-			temp = n;
-			while (temp->next != NULL)
+			while (n->next != NULL)
 			{
-				temp = temp->next;
+				n = n->next;
 			}
-			temp->next = s;
+			n->next = s;
 		}
 		return true;
 	}
@@ -74,20 +70,18 @@ bool addLinkedListBackNode(node* n, _information i) {
 
 bool delLinkedListBackNode(node* n) {
 
-	node* temp = n;
-
 	if (n->next == NULL)
 	{
 		return false;
 	}
 	else
 	{
-		while (temp->next->next != NULL)
+		while (n->next->next != NULL)
 		{
-			temp = temp->next;
+			n = n->next;
 		}
-		free(temp->next);
-		temp->next = NULL;
+		free(n->next);
+		n->next = NULL;
 		return true;
 	}
 }
@@ -96,41 +90,27 @@ bool insertLinkedListNode(node* n, _information i, seat s) {
 
 	node* insertNode = (node*)malloc(sizeof(node));
 
-	if (s >= 1)
-	{
-		s--;
-	}
-	else if (s <= 0)
+	if (s < 0)
 	{
 		return false;
 	}
-
 	if (insertNode != NULL)
 	{
 		insertNode->information = i;
-		node* temp = n;
-		for (int Index = 0; Index < s; Index++)
+
+		while (s--)
 		{
-			if (temp->next != NULL)
+			if (n->next != NULL)
 			{
-				temp = temp->next;
+				n = n->next;
 			}
-			else if (temp->next == NULL)
+			else
 			{
 				break;
 			}
 		}
-		if (temp->next == NULL)
-		{
-			insertNode->next = NULL;
-			temp->next = insertNode;
-		}
-		else
-		{
-			insertNode->next = temp->next;
-			temp->next = insertNode;
-		}
-		return true;
+		insertNode->next = n->next;
+		n->next = insertNode;
 	}
 	else
 	{
@@ -140,18 +120,16 @@ bool insertLinkedListNode(node* n, _information i, seat s) {
 
 bool delLinkedListNode(node* n, seat s) {
 
-	node* temp = n;
-
-	if (s <= 1)
+	if (s <= 0)
 	{
 		return false;
 	}
 
-	for (int Index = 0; Index < s; Index++)
+	while (s--)
 	{
-		if (temp->next != NULL)
+		if (n->next != NULL)
 		{
-			temp = temp->next;
+			n = n->next;
 		}
 		else
 		{
@@ -159,53 +137,44 @@ bool delLinkedListNode(node* n, seat s) {
 		}
 	}
 
-	node* temps = temp->next;
-	temp->next = temp->next->next;
-	free(temps);
+	node* temp = n->next;
+	n->next = n->next->next;
+	free(temp);
 	return true;
 
 }
 
 bool insteadLinkedListNode(node* n, _information i, seat s) {
-	node* temp = n;
 
-	if (s <= 1)
+	if (s < 0)
 	{
 		return false;
 	}
 
-	for (int Index = 0; Index < s; Index++)
+	while (s--)
 	{
-		if (temp->next != NULL)
+		if (n->next != NULL)
 		{
-			temp = temp->next;
+			n = n->next;
 		}
 		else
 		{
 			return false;
 		}
 	}
-	temp->information = i;
+	n->information = i;
 	return true;
 }
 
-bool clrLinkedListNode(node* n) {
+bool delLinkedList(node* n) {
 	node* temp = n, * temps = n;
-	if (temp->next != NULL)
+	while (temp != NULL)
 	{
-		temp = temp->next;
-		while (temp != NULL)
-		{
-			temps = temp->next;
-			free(temp);
-			temp = temps;
-		}
-		n->next = NULL;
+		temps = temp->next;
+		free(temp);
+		temp = temps;
 	}
-	else
-	{
-		return true;
-	}
+	n->next = NULL;
 }
 
 bool orderLinkedList(node* n, orderFunc func, oType type)
@@ -251,4 +220,3 @@ bool swapInf(node* p, node* q)
 	q->information = temp;
 	return true;
 }
-
