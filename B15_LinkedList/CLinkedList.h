@@ -61,7 +61,7 @@ typedef struct node
 /// 创建列表
 /// </summary>
 /// <returns>头结点指针</returns>
-void createLinkedList(node**,_information);
+bool createLinkedList(node**,_information);
 
 /// <summary>
 /// 创建信息结构
@@ -69,7 +69,7 @@ void createLinkedList(node**,_information);
 /// <param name="name">学生姓名</param>
 /// <param name="id">学生学号</param>
 /// <param name="address">学生地址</param>
-/// <returns></returns>
+/// <returns>信息结构体</returns>
 _information createInformation(char* name, long id, char* address);
 
 /// <summary>
